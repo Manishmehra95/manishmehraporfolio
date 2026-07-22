@@ -107,7 +107,7 @@ export default function Contact({ contact }: ContactProps) {
                       type="text"
                       {...register('name')}
                       placeholder="John Doe"
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-sm focus:outline-none focus:border-brand-blue"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-base sm:text-sm focus:outline-none focus:border-brand-blue"
                     />
                     {errors.name && <span className="text-xs text-rose-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.name.message}</span>}
                   </div>
@@ -119,7 +119,7 @@ export default function Contact({ contact }: ContactProps) {
                       type="email"
                       {...register('email')}
                       placeholder="johndoe@example.com"
-                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-sm focus:outline-none focus:border-brand-blue"
+                      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-base sm:text-sm focus:outline-none focus:border-brand-blue"
                     />
                     {errors.email && <span className="text-xs text-rose-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.email.message}</span>}
                   </div>
@@ -132,7 +132,7 @@ export default function Contact({ contact }: ContactProps) {
                     type="tel"
                     {...register('phone')}
                     placeholder="+91 9876543210"
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-sm focus:outline-none focus:border-brand-blue"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-base sm:text-sm focus:outline-none focus:border-brand-blue"
                   />
                   {errors.phone && <span className="text-xs text-rose-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.phone.message}</span>}
                 </div>
@@ -144,7 +144,7 @@ export default function Contact({ contact }: ContactProps) {
                     rows={5}
                     {...register('message')}
                     placeholder="Tell me about your project or query..."
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-sm focus:outline-none focus:border-brand-blue resize-none"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-slate-800 text-base sm:text-sm focus:outline-none focus:border-brand-blue resize-none"
                   />
                   {errors.message && <span className="text-xs text-rose-500 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.message.message}</span>}
                 </div>

@@ -63,7 +63,7 @@ export default function Hero({ hero, profile }: HeroProps) {
           <span className="inline-block px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider text-white bg-white/15 border border-white/20 mb-6 uppercase backdrop-blur-md">
             ✨ {hero.greeting}
           </span>
-          <h1 className="text-6xl md:text-8xl font-bold font-heading text-white tracking-tight mb-4 leading-none">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold font-heading text-white tracking-tight mb-4 leading-tight break-words">
             {hero.name.split(' ')[0]} <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-300">{hero.name.split(' ').slice(1).join(' ')}</span>
           </h1>
           
