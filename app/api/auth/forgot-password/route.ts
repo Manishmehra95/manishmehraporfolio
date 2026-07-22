@@ -29,7 +29,11 @@ export async function POST(request: Request) {
     admin.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour expiry
     await admin.save();
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    // Dynamically detect host and protocol from request headers
+    const host = request.headers.get('host');
+    const proto = request.headers.get('x-forwarded-proto') || 'https';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || (host ? `${proto}://${host}` : 'http://localhost:3000');
+    
     const resetLink = `${appUrl}/admin/reset-password?token=${resetToken}`;
 
     const emailUser = process.env.EMAIL_SERVER_USER;
@@ -43,7 +47,7 @@ export async function POST(request: Request) {
 
       return NextResponse.json({
         success: true,
-        message: 'SMTP settings not configured in .env.local. The reset link has been printed in the server terminal and returned here for local testing.',
+        message: 'SMTP settings not configured. The reset link has been printed in the server terminal and returned here for local testing.',
         debugLink: resetLink,
       });
     }
@@ -82,7 +86,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: 'A password reset link has been sent to your email.',
+      message: 'A password reset link has been sent to your email address.',
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Server error' }, { status: 500 });
