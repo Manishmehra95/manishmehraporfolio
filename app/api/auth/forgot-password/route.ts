@@ -29,10 +29,25 @@ export async function POST(request: Request) {
     admin.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour expiry
     await admin.save();
 
-    // Dynamically detect host and protocol from request headers
-    const host = request.headers.get('host');
+    // Dynamically resolve live app URL with intelligent platform fallbacks (Vercel & Netlify)
+    const rawHost = request.headers.get('x-forwarded-host') || request.headers.get('host');
     const proto = request.headers.get('x-forwarded-proto') || 'https';
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || (host ? `${proto}://${host}` : 'http://localhost:3000');
+    
+    let appUrl = process.env.NEXT_PUBLIC_APP_URL;
+
+    if (!appUrl) {
+      if (rawHost && !rawHost.includes('localhost') && !rawHost.includes('127.0.0.1')) {
+        appUrl = `${proto}://${rawHost}`;
+      } else if (process.env.VERCEL_URL) {
+        appUrl = `https://${process.env.VERCEL_URL}`;
+      } else if (process.env.URL) {
+        appUrl = process.env.URL;
+      } else if (rawHost) {
+        appUrl = `${proto}://${rawHost}`;
+      } else {
+        appUrl = 'http://localhost:3000';
+      }
+    }
     
     const resetLink = `${appUrl}/admin/reset-password?token=${resetToken}`;
 
