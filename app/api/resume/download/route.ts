@@ -9,13 +9,10 @@ export async function GET() {
     await dbConnect();
     const profile = await Profile.findOne().lean();
 
-    if (!profile || !profile.resumeUrl) {
-      return NextResponse.json({ error: 'Resume not found' }, { status: 404 });
-    }
+    const defaultLocalResume = path.join(process.cwd(), 'public', 'uploads', '1784390797473-manish_cv.pdf');
+    const resumeUrl = profile?.resumeUrl || '/uploads/1784390797473-manish_cv.pdf';
 
-    const resumeUrl = profile.resumeUrl;
-
-    // Case 1: Local file in public/ or public/uploads/
+    // 1. Local path handling (starts with '/')
     if (resumeUrl.startsWith('/')) {
       const filePath = path.join(process.cwd(), 'public', resumeUrl);
       if (fs.existsSync(filePath)) {
@@ -30,42 +27,39 @@ export async function GET() {
       }
     }
 
-    // Case 2: Remote URL (Cloudinary or HTTP/HTTPS)
+    // 2. Remote URL handling (HTTP/HTTPS)
     if (resumeUrl.startsWith('http://') || resumeUrl.startsWith('https://')) {
-      // Modify Cloudinary URL to include attachment flag if it's a Cloudinary link
-      let fetchUrl = resumeUrl;
-      if (fetchUrl.includes('cloudinary.com') && fetchUrl.includes('/upload/') && !fetchUrl.includes('fl_attachment')) {
-        fetchUrl = fetchUrl.replace('/upload/', '/upload/fl_attachment:Manish_Mehra_Resume/');
-      }
-
-      const response = await fetch(fetchUrl);
-      if (!response.ok) {
-        // Fallback: try fetching original URL without transformation
-        const origResponse = await fetch(resumeUrl);
-        if (!origResponse.ok) {
-          return NextResponse.json({ error: 'Failed to fetch resume file' }, { status: 500 });
+      try {
+        const response = await fetch(resumeUrl);
+        if (response.ok) {
+          const buffer = await response.arrayBuffer();
+          return new NextResponse(buffer, {
+            headers: {
+              'Content-Type': 'application/pdf',
+              'Content-Disposition': 'attachment; filename="Manish_Mehra_Resume.pdf"',
+            },
+          });
         }
-        const buffer = await origResponse.arrayBuffer();
-        return new NextResponse(buffer, {
-          headers: {
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': 'attachment; filename="Manish_Mehra_Resume.pdf"',
-          },
-        });
+      } catch (fetchErr) {
+        console.error('Remote resume fetch error:', fetchErr);
       }
+    }
 
-      const buffer = await response.arrayBuffer();
-      return new NextResponse(buffer, {
+    // 3. Fallback: serve default local PDF if remote fails or path not found
+    if (fs.existsSync(defaultLocalResume)) {
+      const fallbackBuffer = fs.readFileSync(defaultLocalResume);
+      return new NextResponse(fallbackBuffer, {
         headers: {
           'Content-Type': 'application/pdf',
           'Content-Disposition': 'attachment; filename="Manish_Mehra_Resume.pdf"',
+          'Cache-Control': 'public, max-age=3600',
         },
       });
     }
 
-    return NextResponse.json({ error: 'Invalid resume URL configuration' }, { status: 400 });
+    return NextResponse.json({ error: 'Resume file not found' }, { status: 404 });
   } catch (error: any) {
-    console.error('Error downloading resume:', error);
-    return NextResponse.json({ error: error.message || 'Server error downloading resume' }, { status: 500 });
+    console.error('Error in resume download endpoint:', error);
+    return NextResponse.json({ error: error.message || 'Server error' }, { status: 500 });
   }
 }

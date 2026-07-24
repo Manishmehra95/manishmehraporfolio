@@ -83,7 +83,7 @@ async function seed() {
       profession: 'Frontend Developer',
       greeting: 'AVAILABLE FOR FREELANCE',
       profilePicture: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=687',
-      resumeUrl: 'https://example.com/Manish_resume.pdf',
+      resumeUrl: '/uploads/1784390797473-manish_cv.pdf',
       shortIntro: 'BCA student passionate about frontend development, Java programming and DSA problem solving.',
     });
 
