@@ -79,11 +79,11 @@ export default function About({ about, profile }: AboutProps) {
             </div>
 
             <a
-              href={profile.resumeUrl}
-              download
+              href="/api/resume/download"
+              download="Manish_Mehra_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-orange hover:bg-orange-600 text-white font-semibold rounded-full shadow-lg shadow-orange-500/20 transition-all duration-300 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-orange hover:bg-orange-600 text-white font-semibold rounded-full shadow-lg shadow-orange-500/20 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
             >
               Download Resume <Download className="w-4 h-4" />
             </a>

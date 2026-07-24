@@ -86,11 +86,11 @@ export default function Hero({ hero, profile }: HeroProps) {
               {hero.contactButtonText}
             </a>
             <a
-              href={profile.resumeUrl}
-              download
+              href="/api/resume/download"
+              download="Manish_Mehra_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-brand-blue transition-all duration-300 hover:-translate-y-1 text-sm"
+              className="flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-brand-blue transition-all duration-300 hover:-translate-y-1 text-sm cursor-pointer"
             >
               {hero.resumeButtonText}
             </a>
