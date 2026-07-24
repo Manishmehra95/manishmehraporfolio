@@ -6,10 +6,10 @@ import { IAbout, IProfile } from '@/types';
 
 interface AboutProps {
   about: IAbout;
-  profile: IProfile;
+  profile?: IProfile;
 }
 
-export default function About({ about, profile }: AboutProps) {
+export default function About({ about }: AboutProps) {
   const details = [
     { icon: <Calendar className="w-5 h-5 text-brand-orange" />, label: 'Birthday', value: about.dob || 'January 01, 2005' },
     { icon: <Mail className="w-5 h-5 text-brand-blue" />, label: 'Email', value: about.email || 'manishmehra6299@gmail.com' },
