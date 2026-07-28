@@ -36,7 +36,9 @@ export default function Projects({ projects }: ProjectsProps) {
                 <div className="relative aspect-video overflow-hidden border-b border-slate-100 bg-slate-50">
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={`Screenshot of ${project.title}`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
@@ -45,6 +47,7 @@ export default function Projects({ projects }: ProjectsProps) {
                         href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`GitHub repository for ${project.title}`}
                         className="w-12 h-12 rounded-full bg-white/95 text-brand-blue flex items-center justify-center hover:bg-brand-orange hover:text-white transition-colors duration-300 shadow-md"
                       >
                         <i className="fab fa-github text-xl" />
@@ -55,6 +58,7 @@ export default function Projects({ projects }: ProjectsProps) {
                         href={project.liveDemo}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Live demo for ${project.title}`}
                         className="w-12 h-12 rounded-full bg-white/95 text-brand-blue flex items-center justify-center hover:bg-brand-orange hover:text-white transition-colors duration-300 shadow-md"
                       >
                         <Globe className="w-5 h-5" />

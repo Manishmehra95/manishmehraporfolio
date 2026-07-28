@@ -102,8 +102,9 @@ export default function Contact({ contact }: ContactProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name */}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700">Full Name</label>
+                    <label htmlFor="contact-name" className="text-xs font-bold text-slate-700">Full Name</label>
                     <input
+                      id="contact-name"
                       type="text"
                       {...register('name')}
                       placeholder="John Doe"
@@ -114,8 +115,9 @@ export default function Contact({ contact }: ContactProps) {
 
                   {/* Email */}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700">Email Address</label>
+                    <label htmlFor="contact-email" className="text-xs font-bold text-slate-700">Email Address</label>
                     <input
+                      id="contact-email"
                       type="email"
                       {...register('email')}
                       placeholder="johndoe@example.com"
@@ -127,8 +129,9 @@ export default function Contact({ contact }: ContactProps) {
 
                 {/* Phone */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700">Phone Number</label>
+                  <label htmlFor="contact-phone" className="text-xs font-bold text-slate-700">Phone Number</label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     {...register('phone')}
                     placeholder="+91 9876543210"
@@ -139,8 +142,9 @@ export default function Contact({ contact }: ContactProps) {
 
                 {/* Message */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700">Message</label>
+                  <label htmlFor="contact-message" className="text-xs font-bold text-slate-700">Message</label>
                   <textarea
+                    id="contact-message"
                     rows={5}
                     {...register('message')}
                     placeholder="Tell me about your project or query..."

@@ -121,6 +121,7 @@ export default function Hero({ hero, profile }: HeroProps) {
                 href="https://github.com/Manishmehra95"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="GitHub Profile"
                 className="w-12 h-12 rounded-full bg-white text-brand-blue flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-md"
               >
                 <i className="fab fa-github text-xl" />
@@ -129,6 +130,7 @@ export default function Hero({ hero, profile }: HeroProps) {
                 href="https://www.linkedin.com/in/manish-mehra-0161043aa"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
                 className="w-12 h-12 rounded-full bg-white text-brand-blue flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-md"
               >
                 <i className="fab fa-linkedin-in text-xl" />
@@ -137,6 +139,7 @@ export default function Hero({ hero, profile }: HeroProps) {
                 href="https://www.instagram.com/m_manish__mehra?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Instagram Profile"
                 className="w-12 h-12 rounded-full bg-white text-brand-blue flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-md"
               >
                 <i className="fab fa-instagram text-xl" />
@@ -155,7 +158,11 @@ export default function Hero({ hero, profile }: HeroProps) {
           <div className="relative w-72 h-80 md:w-96 md:h-[500px] rounded-3xl overflow-hidden border-6 border-white/15 shadow-2xl group bg-white">
             <img
               src={profile.profilePicture}
-              alt={profile.name}
+              alt={`Profile picture of ${profile.name}`}
+              loading="eager"
+              decoding="async"
+              // @ts-expect-error fetchpriority attribute is supported in modern browsers
+              fetchpriority="high"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>

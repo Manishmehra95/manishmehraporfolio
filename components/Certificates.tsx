@@ -42,7 +42,9 @@ export default function Certificates({ certificates }: CertificatesProps) {
                   >
                     <img
                       src={cert.image}
-                      alt={cert.title}
+                      alt={`Certificate for ${cert.title}`}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -89,10 +91,12 @@ export default function Certificates({ certificates }: CertificatesProps) {
             <img 
               src={selectedImage} 
               alt="Certificate Full View" 
+              decoding="async"
               className="max-w-full max-h-[80vh] object-contain rounded-2xl border-4 border-white/10 shadow-2xl bg-white"
             />
             <button
               onClick={() => setSelectedImage(null)}
+              aria-label="Close certificate image modal"
               className="absolute -top-12 right-0 text-white hover:text-brand-orange transition-colors flex items-center gap-1.5 text-sm font-semibold cursor-pointer"
             >
               Close <X className="w-5 h-5" />

@@ -59,6 +59,7 @@ export default function Navbar({ name }: NavbarProps) {
         {/* Mobile menu trigger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle navigation menu"
           className="md:hidden text-white hover:text-orange-200 transition-colors focus:outline-none cursor-pointer"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

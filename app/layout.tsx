@@ -23,14 +23,11 @@ export default function RootLayout({
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="googled5cd77b53033fa83" />
 
-        {/* Google AdSense Script */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4510422045053733"
-          crossOrigin="anonymous"
-        ></script>
+        {/* Cloudinary CDN Preconnect & DNS Prefetch for ultra-fast media loading */}
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
 
-        {/* Google Fonts (Inter & Outfit) */}
+        {/* Google Fonts (Inter & Outfit) with display=swap */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -49,6 +46,13 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-slate-950 text-slate-100 font-sans selection:bg-orange-500/30 selection:text-orange-300 overflow-x-hidden min-h-screen">
+        {/* Google AdSense Script loaded after interactive */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4510422045053733"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         {children}
       </body>
     </html>
