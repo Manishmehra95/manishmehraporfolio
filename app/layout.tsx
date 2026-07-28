@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Manish Mehra | Portfolio",
   description: "Personal portfolio website of Manish Mehra",
+  verification: {
+    google: "googled5cd77b53033fa83",
+  },
 };
 
 export default function RootLayout({
@@ -17,6 +20,9 @@ export default function RootLayout({
       className="dark scroll-smooth"
     >
       <head>
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="googled5cd77b53033fa83" />
+
         {/* Google AdSense Script */}
         <script
           async
