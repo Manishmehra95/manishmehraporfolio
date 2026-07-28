@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Globe, ArrowUpRight } from 'lucide-react';
 import { IProject } from '@/types';
+import { getOptimizedImageUrl } from '@/lib/image';
 
 interface ProjectsProps {
   projects: IProject[];
@@ -35,7 +36,7 @@ export default function Projects({ projects }: ProjectsProps) {
                 {/* Image box with overlay */}
                 <div className="relative aspect-video overflow-hidden border-b border-slate-100 bg-slate-50">
                   <img
-                    src={project.image}
+                    src={getOptimizedImageUrl(project.image, 600)}
                     alt={`Screenshot of ${project.title}`}
                     loading="lazy"
                     decoding="async"

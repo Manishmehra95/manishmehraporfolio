@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Award, X } from 'lucide-react';
 import { ICertificate } from '@/types';
+import { getOptimizedImageUrl } from '@/lib/image';
 
 interface CertificatesProps {
   certificates: ICertificate[];
@@ -41,7 +42,7 @@ export default function Certificates({ certificates }: CertificatesProps) {
                     className="block relative aspect-[4/3] rounded-2xl overflow-hidden mb-4 bg-slate-50 border border-slate-200/60 cursor-zoom-in group/img"
                   >
                     <img
-                      src={cert.image}
+                      src={getOptimizedImageUrl(cert.image, 600)}
                       alt={`Certificate for ${cert.title}`}
                       loading="lazy"
                       decoding="async"

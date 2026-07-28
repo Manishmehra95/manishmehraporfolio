@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { IHero, IProfile } from '@/types';
+import { getOptimizedImageUrl } from '@/lib/image';
 
 interface HeroProps {
   hero: IHero;
@@ -157,7 +158,7 @@ export default function Hero({ hero, profile }: HeroProps) {
         >
           <div className="relative w-72 h-80 md:w-96 md:h-[500px] rounded-3xl overflow-hidden border-6 border-white/15 shadow-2xl group bg-white">
             <img
-              src={profile.profilePicture}
+              src={getOptimizedImageUrl(profile.profilePicture, 800)}
               alt={`Profile picture of ${profile.name}`}
               loading="eager"
               decoding="async"
