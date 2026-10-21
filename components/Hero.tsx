@@ -162,8 +162,7 @@ export default function Hero({ hero, profile }: HeroProps) {
               alt={`Profile picture of ${profile.name}`}
               loading="eager"
               decoding="async"
-              // @ts-expect-error fetchpriority attribute is supported in modern browsers
-              fetchpriority="high"
+              fetchPriority="high"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>

@@ -97,12 +97,27 @@ export async function POST(request: Request) {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    try {
+      await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({
-      success: true,
-      message: 'A password reset link has been sent to your email address.',
-    });
+      return NextResponse.json({
+        success: true,
+        message: 'A password reset link has been sent to your email address.',
+      });
+    } catch (mailError: any) {
+      console.error('SMTP Mail error:', mailError.message);
+      console.log(`\n======================================================`);
+      console.log(`[PASSWORD RESET LINK (Fallback)]: ${resetLink}`);
+      console.log(`======================================================\n`);
+
+      // Fallback for local testing or when SMTP credentials fail
+      return NextResponse.json({
+        success: true,
+        message: 'Gmail SMTP authentication failed. Using local development fallback link:',
+        debugLink: resetLink,
+        smtpError: mailError.message,
+      });
+    }
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Server error' }, { status: 500 });
   }
