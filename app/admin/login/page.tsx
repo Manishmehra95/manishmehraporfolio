@@ -111,16 +111,8 @@ export default function AdminLogin() {
       const resData = await response.json();
       if (!response.ok) throw new Error(resData.error || 'Failed to send link');
 
-      setSuccess(resData.message || 'Reset link sent successfully!');
-      
-      // If in debug/development mode and SMTP is not set, we can auto-redirect to the debug link in local environment
-      if (resData.debugLink) {
-        console.log('Debug Link:', resData.debugLink);
-        setSuccess(`[Local Dev Mode]: Reset link generated. Click the button below to simulate opening it:`);
-        setRecoveryKey(resData.debugLink); // Temporarily store the link to click it!
-      } else {
-        setForgotEmail('');
-      }
+      setSuccess(resData.message || 'Password reset link sent to your Gmail inbox!');
+      setForgotEmail('');
     } catch (err: any) {
       setError(err.message || 'Failed to send reset link');
     } finally {
@@ -177,20 +169,9 @@ export default function AdminLogin() {
 
         <div className="glass p-8 md:p-10 rounded-3xl border border-white/5 shadow-2xl">
           {success && (
-            <div className="p-4 mb-6 bg-emerald-500/10 border border-emerald-500/20 text-emerald-450 rounded-xl text-sm flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 shrink-0" />
-                <span>{success}</span>
-              </div>
-              {/* If debugLink exists, provide a button to click it */}
-              {recoveryKey.startsWith('http') && (
-                <a
-                  href={recoveryKey}
-                  className="mt-2 text-center w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition-all"
-                >
-                  Open Simulated Reset Link
-                </a>
-              )}
+            <div className="p-4 mb-6 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-sm flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 shrink-0" />
+              <span>{success}</span>
             </div>
           )}
 

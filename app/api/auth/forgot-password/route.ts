@@ -55,16 +55,9 @@ export async function POST(request: Request) {
     const emailPass = process.env.EMAIL_SERVER_PASSWORD;
 
     if (!emailUser || !emailPass) {
-      // SMTP not configured - Fallback debug mode for local testing
-      console.log(`\n======================================================`);
-      console.log(`[PASSWORD RESET LINK]: ${resetLink}`);
-      console.log(`======================================================\n`);
-
       return NextResponse.json({
-        success: true,
-        message: 'SMTP settings not configured. The reset link has been printed in the server terminal and returned here for local testing.',
-        debugLink: resetLink,
-      });
+        error: 'Email service is not configured on the server. Please configure SMTP credentials.',
+      }, { status: 500 });
     }
 
     // Configure SMTP nodemailer transporter
@@ -83,7 +76,7 @@ export async function POST(request: Request) {
       to: admin.email,
       subject: 'Reset Password - Admin Portal',
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; rounded-2xl;">
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 16px;">
           <h2 style="color: #f97316; font-size: 24px; font-weight: bold; margin-bottom: 20px;">Password Reset Request</h2>
           <p style="font-size: 16px; color: #334155; line-height: 1.6;">You are receiving this email because you requested a password reset for your Admin Portal.</p>
           <p style="font-size: 16px; color: #334155; line-height: 1.6; margin-bottom: 30px;">Please click the button below to choose a new password. This link is valid for 1 hour:</p>
@@ -102,21 +95,13 @@ export async function POST(request: Request) {
 
       return NextResponse.json({
         success: true,
-        message: 'A password reset link has been sent to your email address.',
+        message: 'A password reset link has been sent securely to your Gmail address.',
       });
     } catch (mailError: any) {
       console.error('SMTP Mail error:', mailError.message);
-      console.log(`\n======================================================`);
-      console.log(`[PASSWORD RESET LINK (Fallback)]: ${resetLink}`);
-      console.log(`======================================================\n`);
-
-      // Fallback for local testing or when SMTP credentials fail
       return NextResponse.json({
-        success: true,
-        message: 'Gmail SMTP authentication failed. Using local development fallback link:',
-        debugLink: resetLink,
-        smtpError: mailError.message,
-      });
+        error: `Failed to send email to Gmail (${mailError.message}). Please check Google App Password.`,
+      }, { status: 500 });
     }
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Server error' }, { status: 500 });
