@@ -88,23 +88,13 @@ export default function Certificates({ certificates }: CertificatesProps) {
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/85 backdrop-blur-sm p-4 cursor-zoom-out"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative max-w-4xl max-h-[90vh] w-full flex flex-col items-center justify-center gap-3" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <img 
               src={getOptimizedImageUrl(selectedImage, 1600)} 
               alt="Certificate Full View" 
               decoding="async"
               className="max-w-full max-h-[80vh] object-contain rounded-2xl border-4 border-white/10 shadow-2xl bg-white"
             />
-            {selectedImage.toLowerCase().includes('.pdf') && (
-              <a
-                href={selectedImage}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-orange hover:bg-orange-600 text-white font-bold rounded-xl text-sm transition-all shadow-lg cursor-pointer"
-              >
-                <ExternalLink className="w-4 h-4" /> Open Original PDF Document
-              </a>
-            )}
             <button
               onClick={() => setSelectedImage(null)}
               aria-label="Close certificate image modal"
